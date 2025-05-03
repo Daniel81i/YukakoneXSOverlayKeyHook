@@ -1,20 +1,20 @@
 # Yukakone XSOverlay Trigger Listener
 
 This is a background utility for Windows that listens to **media key inputs from XSOverlay**  
-and sends HTTP requests to control **Yukanone's mute ON/OFF** via local web queries.
+and sends HTTP requests to control **Yukanone's[ゆかコネ] mute ON/OFF** via local web queries.
 
 ## Features
 
 - Detects **"Next Track" and "Previous Track"** media keys (`0xB0`, `0xB1`)
-- Sends corresponding HTTP requests to a locally running Yukanone instance
+- Sends corresponding HTTP requests to a locally running Yukakone apps
 - Logs all events with timestamps to **both standard output and a log file**
 - Log files are saved in the same folder as the executable with a timestamped filename
 
 ## Usage
 
 1. Run `XSoverlayKeyHook.exe`
-2. Press the **"Next Track"** media key (`0xB0`) to send a `MuteOn` command to Yukanone
-3. Press the **"Previous Track"** media key (`0xB1`) to send a `MuteOff` command to Yukanone
+2. Press the XSOverlay **"Next Track"** media key (`0xB0`) to send a `MuteOn` command to Yukanone
+3. Press the XSOverlay **"Previous Track"** media key (`0xB1`) to send a `MuteOff` command to Yukanone
 4. Press **Ctrl+C** to gracefully exit the program
 
 ## Log Output
