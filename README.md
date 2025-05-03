@@ -1,4 +1,4 @@
-# Yukanone XSOverlay Trigger Listener
+# Yukakone XSOverlay Trigger Listener
 
 This is a background utility for Windows that listens to **media key inputs from XSOverlay**  
 and sends HTTP requests to control **Yukanone's mute ON/OFF** via local web queries.
