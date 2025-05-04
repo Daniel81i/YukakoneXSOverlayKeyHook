@@ -4,6 +4,7 @@ import sys
 import platform
 from datetime import datetime
 import os
+import threading
 
 # === ログファイル設定 ===
 script_path = os.path.abspath(sys.argv[0])
@@ -20,7 +21,23 @@ def log(message):
     with open(log_file_path, "a", encoding="utf-8") as f:
         f.write(full_message + "\n")
 
-# === キーボードフック処理 ===
+# === Enterキーで終了する処理 ===
+def wait_for_exit():
+    input()
+    log("Manual exit requested. Stopping listener.")
+    os._exit(0)  # 安全に強制終了
+
+# バックグラウンドで入力待ちを起動
+threading.Thread(target=wait_for_exit, daemon=True).start()
+
+# === 起動ログ ===
+log("Program started.")
+log(f"Python version: {sys.version.split()[0]} ({platform.python_implementation()})")
+log("Yukakone Mute On/Off XSOverlay Media Key Hook Listener: Previous->Off Next->On")
+log("Listening for media keys...")
+log("Press [Enter] to exit the program at any time.")
+
+# === キーボード入力処理 ===
 def win32_event_filter(msg, data):
     if 0xB1 == data.vkCode:
         if msg == 257:
@@ -30,11 +47,6 @@ def win32_event_filter(msg, data):
                 log(f"Web request sent: {response.status_code}")
             except Exception as e:
                 log(f"Failed to send web request: {e}")
-        listener.suppress_event()
-
-    if 0xB3 == data.vkCode:
-        if msg == 257:
-            log("Pushed Play/Pause key")
         listener.suppress_event()
 
     if 0xB0 == data.vkCode:
@@ -47,22 +59,11 @@ def win32_event_filter(msg, data):
                 log(f"Failed to send web request: {e}")
         listener.suppress_event()
 
-# === 実行メイン処理 ===
-log("Program started.")
-log(f"Python version: {sys.version.split()[0]} ({platform.python_implementation()})")
-
-try:
-    with keyboard.Listener(
-        on_press=None,
-        on_release=None,
-        win32_event_filter=win32_event_filter,
-        suppress=False
-    ) as listener:
-        log("Listening for media keys... Press Ctrl+C to exit.")
-        listener.join()
-except KeyboardInterrupt:
-    log("Ctrl+C detected. Shutting down gracefully.")
-except Exception as e:
-    log(f"Unexpected error: {e}")
-finally:
-    log("Program exited.")
+# === リスナー起動 ===
+with keyboard.Listener(
+    on_press=None,
+    on_release=None,
+    win32_event_filter=win32_event_filter,
+    suppress=False
+) as listener:
+    listener.join()
