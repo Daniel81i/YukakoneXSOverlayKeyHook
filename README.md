@@ -5,9 +5,8 @@ and sends HTTP requests to control **Yukanone's[ゆかコネ] mute ON/OFF** via 
 
 ## Features
 
-- Detects **"Next Track" and "Previous Track"** media keys (`0xB0`, `0xB1`)
+- Detects XSOverlay **"Next Track" and "Previous Track"** media keys (`0xB0`, `0xB1`)
 - Sends corresponding HTTP requests to a locally running Yukakone apps
-- Logs all events with timestamps to **both standard output and a log file**
 - Log files are saved in the same folder as the executable with a timestamped filename
 
 ## Usage
@@ -15,7 +14,7 @@ and sends HTTP requests to control **Yukanone's[ゆかコネ] mute ON/OFF** via 
 1. Run `XSoverlayKeyHook.exe`
 2. Press the XSOverlay **"Next Track"** media key (`0xB0`) to send a `MuteOn` command to Yukanone
 3. Press the XSOverlay **"Previous Track"** media key (`0xB1`) to send a `MuteOff` command to Yukanone
-4. Press **Ctrl+C** to gracefully exit the program
+4. Press **Enter** to gracefully exit the program
 
 ## Log Output
 
